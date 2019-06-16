@@ -26,11 +26,11 @@ enum QuestionPool {
     }
 
     public Question pop() {
+        tryRefill();
         var question = new Question(QUESTION_POOL.poll(), ANSWER_POOL.poll());
         while(question.hasOpenAnswerSlots()) {
             question.addWrongAnswer(ANSWER_POOL.get(ThreadLocalRandom.current().nextInt(0, ANSWER_POOL.size())));
         }
-        tryRefill();
         return question;
     }
 }

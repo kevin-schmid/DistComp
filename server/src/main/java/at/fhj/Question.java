@@ -1,8 +1,8 @@
 package at.fhj;
 
+import com.google.gson.Gson;
 import org.eclipse.jetty.util.StringUtil;
 
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Question {
@@ -49,5 +49,14 @@ public class Question {
         if(blankIndex > -1) {
             answers[blankIndex] = answer;
         }
+    }
+
+    @Override
+    public String toString() {
+        return toJson();
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
     }
 }

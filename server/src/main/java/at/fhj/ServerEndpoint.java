@@ -15,7 +15,7 @@ public class ServerEndpoint {
     @OnMessage
     public void onMessage(Session session, String message) {
         var question = questionPool.pop();
-        session.getAsyncRemote().sendText(question.getQuestion());
+        session.getAsyncRemote().sendText(question.toJson());
         System.out.printf("onMessage: sessionId='%s', message='%s' \n", session.getId(), message);
     }
 
