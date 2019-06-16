@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'at.fhj'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '5.4.2'
+
+    // https://mvnrepository.com/artifact/javax.websocket/javax.websocket-api
+    compile group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/javax-websocket-server-impl
+    compile group: 'org.eclipse.jetty.websocket', name: 'javax-websocket-server-impl', version: '9.4.19.v20190610'
+
+
+
+}
