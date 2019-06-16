@@ -1,26 +1,34 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"encoding/json"
+
 	"github.com/streadway/amqp"
 )
 
-// Structs to unmarshal the json into
+// SheetsData to unmarshal the json into
 type SheetsData struct {
-	SpreadsheetId string `json:"spreadsheetId"`
-	ValueRanges []ValueRange `json:"valueRanges"`
+	SpreadsheetID string       `json:"spreadsheetId"`
+	ValueRanges   []ValueRange `json:"valueRanges"`
 }
 
+// ValueRange represents the data
 type ValueRange struct {
-	Range string `json:"range"`
-	MajorDimension string `json:"majorDimension"`
-	Values [][]string `json:"values"`
+	Range          string     `json:"range"`
+	MajorDimension string     `json:"majorDimension"`
+	Values         [][]string `json:"values"`
 }
 
-func main()  {
+// Question to marshal for server
+type Question struct {
+	Question string
+	Answer   string
+}
+
+func main() {
 	// loading the sheets data
 	res, err := http.Get("https://sheets.googleapis.com/v4/spreadsheets/1g8464j9pz50pExB8IUdAtZnX4T2fcDbL9aQSHi9EyzE/values:batchGet?ranges=B7%3AB120&ranges=E7%3AE120&key=AIzaSyAWoy5sbzQy1o2ALOTUopHVZmSIOzCVPjw")
 	failOnError(err)
@@ -50,29 +58,35 @@ func main()  {
 	// declaring the queue 'questions'
 	q, err := ch.QueueDeclare(
 		"questions", // name
-		false,   // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
+		false,       // durable
+		false,       // delete when unused
+		false,       // exclusive
+		false,       // no-wait
+		nil,         // arguments
 	)
 	failOnError(err)
 
 	// iterating through data
-	for i:=0;i<len(keys.Values);i++ {
+	for i := 0; i < len(keys.Values); i++ {
 
 		// check if both have a value
-		if(len(keys.Values[i])>0 && len(vals.Values[i])>0) {
+		if len(keys.Values[i]) > 0 && len(vals.Values[i]) > 0 {
+			// TODO: go routine might be nice here
 
-			// sending key/value pair to queue
+			// creating JSON object
+			jsonObj := Question{keys.Values[i][0], vals.Values[i][0]}
+			bin, err := json.Marshal(jsonObj)
+			failOnError(err)
+
+			// sending message to queue
 			err = ch.Publish(
 				"",     // exchange
 				q.Name, // routing key
 				false,  // mandatory
 				false,  // immediate
-				amqp.Publishing {
-				  ContentType: "text/plain",
-				  Body:        []byte("["+keys.Values[i][0]+"],["+vals.Values[i][0]+"]"),
+				amqp.Publishing{
+					ContentType: "text/plain",
+					Body:        bin,
 				})
 			failOnError(err)
 		}
