@@ -1,5 +1,6 @@
 package at.fhj;
 
+import at.fhj.question.Question;
 import org.junit.Assert;
 import org.junit.Test;
 

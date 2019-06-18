@@ -1,4 +1,4 @@
-package at.fhj;
+package at.fhj.question;
 
 import com.google.gson.Gson;
 import org.eclipse.jetty.util.StringUtil;

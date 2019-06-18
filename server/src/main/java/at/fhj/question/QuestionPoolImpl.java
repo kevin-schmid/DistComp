@@ -1,12 +1,10 @@
-package at.fhj;
+package at.fhj.question;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 
-enum QuestionPool {
-    INSTANCE;
-
+class QuestionPoolImpl implements QuestionPool{
     private static final Queue<String> QUESTION_POOL = new LinkedList<>();
     private static final LinkedList<String> ANSWER_POOL = new LinkedList<>();
 
@@ -15,7 +13,7 @@ enum QuestionPool {
         ANSWER_POOL.add(answer);
     };
 
-    static {
+    public QuestionPoolImpl() {
         tryRefill();
     }
 
@@ -25,12 +23,13 @@ enum QuestionPool {
         }
     }
 
+    @Override
     public Question pop() {
-        tryRefill();
         var question = new Question(QUESTION_POOL.poll(), ANSWER_POOL.poll());
         while(question.hasOpenAnswerSlots()) {
             question.addWrongAnswer(ANSWER_POOL.get(ThreadLocalRandom.current().nextInt(0, ANSWER_POOL.size())));
         }
+        tryRefill();
         return question;
     }
 }

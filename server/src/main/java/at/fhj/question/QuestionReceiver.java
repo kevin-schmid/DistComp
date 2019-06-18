@@ -1,12 +1,9 @@
-package at.fhj;
+package at.fhj.question;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
-import java.util.Map;
 import java.util.function.BiConsumer;
 
 class QuestionReceiver {

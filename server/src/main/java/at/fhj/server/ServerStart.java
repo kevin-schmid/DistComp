@@ -1,4 +1,4 @@
-package at.fhj;
+package at.fhj.server;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
