@@ -1,0 +1,14 @@
+{
+  "name": "simpqi",
+  "version": "1.0.0",
+  "description": "Super Frontend for ze Simpquiz",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sarcevic Lejla, Rehberger Raffael",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}
