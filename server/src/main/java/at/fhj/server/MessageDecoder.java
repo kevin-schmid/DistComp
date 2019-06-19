@@ -6,11 +6,13 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-class MessageDecoder implements Decoder.Text<ClientMessage> {
-    private static final String USERNAME = "Username";
-    private static final String ACTION = "Action";
+public class MessageDecoder implements Decoder.Text<ClientMessage> {
+    private static final String USERNAME = "username";
+    private static final String ACTION = "action";
 
     private final JsonParser jsonParser = new JsonParser();
+
+    public MessageDecoder(){}
 
     @Override
     public ClientMessage decode(String message) throws DecodeException {
@@ -27,12 +29,8 @@ class MessageDecoder implements Decoder.Text<ClientMessage> {
     }
 
     @Override
-    public void init(EndpointConfig config) {
-
-    }
+    public void init(EndpointConfig config) {}
 
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

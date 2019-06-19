@@ -8,6 +8,6 @@ class GameTerminator implements Runnable {
 
     @Override
     public void run() {
-        GameManagerImpl.INSTANCE.removeGame(game);
+        GameManager.INSTANCE.endGame(game);
     }
 }

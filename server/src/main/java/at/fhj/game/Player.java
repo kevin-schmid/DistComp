@@ -1,11 +1,16 @@
 package at.fhj.game;
 
+import com.google.gson.annotations.Expose;
+
 import javax.websocket.Session;
 
 public class Player {
+    @Expose
     private String username;
-    private Session session;
+    @Expose
     private int correctAnswers;
+
+    private Session session;
 
     public Player(String username, Session session) {
         this.username = username;
@@ -16,8 +21,8 @@ public class Player {
         return username;
     }
 
-    public Session getSession() {
-        return session;
+    public void send(Object msg) {
+        session.getAsyncRemote().sendObject(msg);
     }
 
     public void incCorrectAnswers() {

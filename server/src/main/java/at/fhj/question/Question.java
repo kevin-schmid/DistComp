@@ -1,13 +1,16 @@
 package at.fhj.question;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import org.eclipse.jetty.util.StringUtil;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Question {
+    @Expose
     private String question;
+    @Expose
     private int correctAnswer;
+    @Expose
     private String[] answers = new String[4];
 
     public Question(String question, String correctAnswer) {
@@ -43,20 +46,11 @@ public class Question {
             if(StringUtil.isBlank(answers[i])) {
                 blankIndex = i;
             } else if(answers[i].equals(answer)) {
-                    return;
+                return;
             }
         }
         if(blankIndex > -1) {
             answers[blankIndex] = answer;
         }
-    }
-
-    @Override
-    public String toString() {
-        return toJson();
-    }
-
-    public String toJson() {
-        return new Gson().toJson(this);
     }
 }
