@@ -1,0 +1,35 @@
+.game-header {
+    padding: 3%;
+    text-align: center;
+    background-image: url("../image/banner.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    color: white;
+    font-size: 400%;
+}
+
+.message {
+    padding-bottom: 1.5%;
+
+}
+
+.choose {
+    font-size: 400%;
+
+}
+
+.checkbox {
+    padding: 5%;
+}
+
+.answer{
+    padding: 18px;
+    font-size: 24px;
+    border-width: 1px;
+    background-color: #FFFFFF;
+    border-style: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(66,66,66,.75);
+}
+
+

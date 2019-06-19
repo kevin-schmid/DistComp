@@ -3,6 +3,7 @@ function renderSimpQiUnsupportedError(reason) {
 }
 
 $(document).ready(function() {
+    $('.game-header').hide();
     var persistenceService = new PersistenceService();
     if(!persistenceService.isClientSupportingLocalStorage() 
         || !persistenceService.isClientSupportingsSessionStorage()) {
@@ -11,8 +12,9 @@ $(document).ready(function() {
 
     var backendService = new BackendServiceFactory("localhost", 1337, true).create();
 
+    var gameController = new GameController(backendService, persistenceService);
     var loginController = new LoginController(backendService, persistenceService, function(username){
-       alert("User " + username + " ist jetzt angemeledet");
+       gameController.display();
     });
 
     loginController.display();

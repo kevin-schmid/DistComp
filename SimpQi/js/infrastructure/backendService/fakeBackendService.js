@@ -1,6 +1,5 @@
 class FakeBackendService {
     constructor() {
-        this.registeredNewResultCallbacks = []
         this.registeredNewQuestionCallbacks = []
     }
 
@@ -17,24 +16,14 @@ class FakeBackendService {
             'message': `The username '${username}' has already been taken` 
         };
     }
-    
-    notifyNewQuestionAndAnswer(questionAndAnswer) {
+
+    notifyNewQuestion(question) {
         for(var i = 0; i < this.registeredNewQuestionCallbacks.length; i++) {
-            this.registeredNewQuestionCallbacks[i](questionAndAnswer);
+            this.registeredNewQuestionCallbacks[i](question);
         }
     }
 
-    registerOnNewQuestionAndAnswer(onNewQuestionAndAnswerReceived) {
-        registeredNewQuestionCallbacks.push(onNewQuestionAndAnswerReceived)
-    }
-
-    notifyNewResultAndRanking(resultAndRanking) {
-        for(var i = 0; i < this.registeredNewResultCallbacks.length; i++) {
-            this.registeredNewResultCallbacks[i](resultAndRanking);
-        }
-    }
-
-    registerOnNewResultAndRanking(onNewResultAndRankingReceived) {
-        registeredNewResultCallbacks.push(onNewResultAndRankingReceived);
+    registerOnNewQuestion(callback) {
+        registeredNewQuestionCallbacks.push(callback);
     }
 }
