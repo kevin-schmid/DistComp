@@ -1,5 +1,5 @@
 const PlayerCardTemplate = `
-<div class="ui centered link cards">
+<div class="ui middle aligned center aligned link cards">
     <div class="card">
         <div class="image">
             <img class="js-card-image" src="">
