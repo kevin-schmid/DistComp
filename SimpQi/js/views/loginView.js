@@ -1,7 +1,7 @@
 const LoginTemplate = `
-<div class="ui middle aligned center aligned grid">
+<div class="ui one column stackable center aligned page grid login-container">
     <div class="column">
-        <h2 class="ui teal image header">
+        <h2 class="ui blue image header">
             <div class="content">
                 Welcome to SimpQi
             </div>
@@ -14,7 +14,7 @@ const LoginTemplate = `
                         <input class="js-username-input" type="text" name="username" placeholder="Username">
                     </div>
                 </div>
-                <div class="ui fluid large teal submit button js-login-button">Let's Play!</div>
+                <div class="ui fluid large blue submit button js-login-button">Let's Play!</div>
             </div>
             <div class="ui error message js-error-message"></div>
         </form>
