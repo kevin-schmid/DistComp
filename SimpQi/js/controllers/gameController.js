@@ -26,6 +26,13 @@ class GameController {
         $('.js-centered-body').empty();
         renderPlayerCardWaiting(this.currentUser, this.playerImages[0]);
         $('.js-centered-body').fadeIn(1000);
+
+
+        setTimeout(function(){
+            $('.js-centered-body').empty();
+            renderQuestion(new Question("Warum ist die Banane krumm?", [
+                "Weiß nicht", "Darum", "Hab Angst", "Weil sie gelb ist"], 3));
+        }, 1000);
         this.initialize();
     }
 

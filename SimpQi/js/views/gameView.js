@@ -26,14 +26,59 @@ const PlayerCardTemplate = `
                 Austria
             </span>
         </div>
-    </div>
-`;
+    </div>`;
+
+const QuestionTemplate = `
+    <div class="inline fields">
+        <div class="message">
+            <div class="currentQuestion">
+                Question Number 1
+            </div>
+            <p class="info js-question"></p>
+        </div>
+        <label class="choose">Choose your answer wisely!</label>
+        <div class="js-answers"></div>
+    </div>`;
+
+const AnswerTemplate = `            
+    <div class="field">
+        <div class="ui radio checkbox">
+            <label>
+                <input type="radio" name="answer" tabindex="0" class="hidden">
+            </label>
+            <label class="answer js-answer"></label>
+        </div>
+    </div>`;
 
 function renderPlayerCardWaiting(playerName, playerImageUrl) {
     $(document).attr("title", "SimpQi | Waiting");
     var template = $(PlayerCardTemplate);
     template.find('.js-card-name').text(playerName);
     template.find('.js-card-image').attr('src', playerImageUrl);
+
+    $('.js-centered-body').html(template);
+}
+
+function renderAnswer(answer, answerIndex) {
+    var template = $(AnswerTemplate);
+    template.find('.js-answer').text(answer);
+    template.find('.checkbox').addClass(`js-answer-selection-${answerIndex}`);
+    return template.html();
+}
+
+function renderQuestion(question) {
+    $(document).attr("title", "SimpQi | Gametime");
+    $('.game-header').show();
+
+    var template = $(QuestionTemplate);
+    template.find('.js-question').text(question.getQuestion());
+    var allAnswers = question.getAllAnswers();
+    var templatesCombined = "";
+    for(var i = 0; i < allAnswers.length; i++){
+        var renderedTemplate = renderAnswer(allAnswers[i], i);
+        templatesCombined += renderedTemplate;
+        template.find('.js-answers').html(templatesCombined);
+    }
 
     $('.js-centered-body').html(template);
 }

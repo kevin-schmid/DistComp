@@ -5,12 +5,15 @@ class Question {
         this.correctAnswer = correctAnswer;
     }
 
-
     getAllAnswers() {
-        return answers;
+        return this.answers;
     }
 
     getCorrectAnswer() {
-        return answers[this.correctAnswer];
+        return this.answers[this.correctAnswer];
+    }
+
+    getQuestion() {
+        return this.question;
     }
 }

@@ -3,6 +3,7 @@ function renderSimpQiUnsupportedError(reason) {
 }
 
 $(document).ready(function() {
+    $('.game-header').hide();
     var persistenceService = new PersistenceService();
     if(!persistenceService.isClientSupportingLocalStorage() 
         || !persistenceService.isClientSupportingsSessionStorage()) {
