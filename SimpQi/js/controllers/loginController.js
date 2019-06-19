@@ -58,6 +58,5 @@ class LoginController {
             .html(message)
             .show()
             .fadeOut(5000);
-
     }
 }
