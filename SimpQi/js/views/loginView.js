@@ -22,5 +22,6 @@ const LoginTemplate = `
 </div>`;
 
 function renderLogin() {
+    $(document).attr("title", "SimpiQi | Login");
     $('.js-centered-body').html(LoginTemplate);
 }
