@@ -14,7 +14,7 @@ const LoginTemplate = `
                         <input class="js-username-input" type="text" name="username" placeholder="Username">
                     </div>
                 </div>
-                <div class="ui fluid large teal submit button js-login-button">Login</div>
+                <div class="ui fluid large teal submit button js-login-button">Let's Play!</div>
             </div>
             <div class="ui error message js-error-message"></div>
         </form>
@@ -22,6 +22,6 @@ const LoginTemplate = `
 </div>`;
 
 function renderLogin() {
-    $(document).attr("title", "SimpiQi | Login");
+    $(document).attr("title", "SimpQi | Login");
     $('.js-centered-body').html(LoginTemplate);
 }

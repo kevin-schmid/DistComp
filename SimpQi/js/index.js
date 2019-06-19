@@ -11,8 +11,9 @@ $(document).ready(function() {
 
     var backendService = new BackendServiceFactory("localhost", 1337, true).create();
 
+    var gameController = new GameController(backendService, persistenceService);
     var loginController = new LoginController(backendService, persistenceService, function(username){
-       alert("User " + username + " ist jetzt angemeledet");
+       gameController.display();
     });
 
     loginController.display();

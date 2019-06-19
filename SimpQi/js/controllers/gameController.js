@@ -2,6 +2,16 @@ class GameController {
     constructor(backendService, persistenceService) {
         this.backendService = backendService;
         this.persistenceService = persistenceService;
+
+        this.playerImages = [
+            "img/player/p1.jpg",
+            "img/player/p2.jpg",
+            "img/player/p3.jpg",
+            "img/player/p4.jpg"
+        ]
+
+        this.currentUser = persistenceService
+            .loadFromLocalStorage('lastUsername');
     }
 
     initialize() {
@@ -11,16 +21,24 @@ class GameController {
         /* if questionAnswered, displayRank() */
     }
 
+
+    display() {
+        $('.js-centered-body').empty();
+        renderPlayerCardWaiting(this.currentUser, this.playerImages[0]);
+        $('.js-centered-body').fadeIn(1000);
+        this.initialize();
+    }
+
     displayWaitingForQuestion() {
         
     }
 
-    displayQuestion(questionAndAnswer) {
+    displayQuestion(question) {
 
     }
 
     displayRank() {
 
     }
-    
+
  }
