@@ -1,6 +1,5 @@
 const PlayerCardTemplate = `
-<div class="ui middle aligned center aligned link cards">
-    <div class="card">
+    <div class="ui centered card">
         <div class="image">
             <img class="js-card-image" src="">
         </div>
@@ -10,7 +9,12 @@ const PlayerCardTemplate = `
                     <a>SimpQi-Player</a>
                 </div>
             <div class="description">
-                This is you for the next game! Please wait while we find players.
+                Waiting for further players
+                <div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
             </div>
         </div>
         <div class="extra content">
@@ -23,7 +27,6 @@ const PlayerCardTemplate = `
             </span>
         </div>
     </div>
-</div>
 `;
 
 function renderPlayerCardWaiting(playerName, playerImageUrl) {
