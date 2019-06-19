@@ -16,6 +16,7 @@ const LoginTemplate = `
                 </div>
                 <div class="ui fluid large teal submit button js-login-button">Login</div>
             </div>
+            <div class="ui error message js-error-message"></div>
         </form>
     </div>
 </div>`;
