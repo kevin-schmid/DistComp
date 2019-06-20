@@ -5,10 +5,10 @@ class GameController {
         this.sensorService = sensorService;
 
         this.playerImages = [
-            "img/player/p1.jpg",
-            "img/player/p2.jpg",
-            "img/player/p3.jpg",
-            "img/player/p4.jpg"
+            "img/player/freddie.jpg",
+            "img/player/freddie2.jpg",
+            "img/player/freddie3.jpg",
+            "img/player/spongebob.jpg"
         ];
 
         this.currentUser = persistenceService
