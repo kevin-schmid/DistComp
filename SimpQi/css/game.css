@@ -1,35 +1,60 @@
 .game-header {
-    padding: 3%;
+    padding: 5%;
     text-align: center;
     background-image: url("../image/banner.png");
     background-repeat: no-repeat;
     background-size: 100%;
+}
+
+.game-header h1 {
     color: white;
-    font-size: 400%;
+    font-size: 600%;
 }
 
 .message {
-    padding-bottom: 1.5%;
+    padding: 2%;
+}
 
+.currentQuestion {
+    font-size: 100%;
+    padding-bottom: 3%;
+}
+
+.info {
+    font-size: 200%;
+    padding: 2%;
+    border-width: 1px;
+    background-color: #FFFFFF;
+    border-style: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(66,66,66,.75);
 }
 
 .choose {
-    font-size: 400%;
+    display: block;
+    font-size: 150%;
+    padding-bottom: 2%;
 
 }
 
 .checkbox {
-    padding: 5%;
+    padding: 1%;
+}
+
+.checkbox label {
+    width: 20%;
+    display: inline-block;
 }
 
 .answer{
-    padding: 18px;
-    font-size: 24px;
+    padding: 1.2%;
+    font-size: 150%;
     border-width: 1px;
     background-color: #FFFFFF;
     border-style: hidden;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 0 5px rgba(66,66,66,.75);
+    text-align: left;
 }
 
 
