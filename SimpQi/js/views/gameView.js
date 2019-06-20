@@ -21,9 +21,8 @@ const PlayerCardTemplate = `
             <span class="right floated">
                 2019
             </span>
-            <span>
+            <span class="js-country">
                 <i class="user icon"></i>
-                Austria
             </span>
         </div>
     </div>`;
@@ -50,11 +49,12 @@ const AnswerTemplate = `
         </div>
     </div>`;
 
-function renderPlayerCardWaiting(playerName, playerImageUrl) {
+function renderPlayerCardWaiting(playerName, playerImageUrl, country) {
     $(document).attr("title", "SimpQi | Waiting");
     var template = $(PlayerCardTemplate);
     template.find('.js-card-name').text(playerName);
     template.find('.js-card-image').attr('src', playerImageUrl);
+    template.find('.js-country').append(country);
 
     $('.js-centered-body').html(template);
 }

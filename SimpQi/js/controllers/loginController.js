@@ -1,14 +1,17 @@
 class LoginController {
-    constructor(backendService, persistenceService, loginSuccessCallback) {
+    constructor(backendService, persistenceService, sensorService, loginSuccessCallback) {
         if(backendService === undefined)
             throw Error("BackendService may not be undefined");
         if(persistenceService === undefined) 
             throw Error("PersistenceService may not be undefined");
+        if(sensorService === undefined)
+            throw Error("SensorService may not be undefined");
         if(loginSuccessCallback === undefined)
             throw Error("LoginSuccess-Callback may not be undefined");
 
         this.backendService = backendService;
         this.persistenceService = persistenceService;
+        this.sensorService = sensorService;
         this.loginSuccessCallback = loginSuccessCallback;
     }
 
@@ -43,6 +46,7 @@ class LoginController {
         var username = $('.js-username-input').val();
         var loginResult = this.backendService.tryLogin(username);
         if(loginResult.success === false) {
+            this.sensorService.vibrate([100, 100]);
             this.flashLoginError(loginResult.message);
             return;
         }

@@ -4,6 +4,7 @@ function renderSimpQiUnsupportedError(reason) {
 
 $(document).ready(function() {
     $('.game-header').hide();
+    var sensorService = new Sensors();
     var persistenceService = new PersistenceService();
     if(!persistenceService.isClientSupportingLocalStorage() 
         || !persistenceService.isClientSupportingsSessionStorage()) {
@@ -12,8 +13,8 @@ $(document).ready(function() {
 
     var backendService = new BackendServiceFactory("localhost", 1337, true).create();
 
-    var gameController = new GameController(backendService, persistenceService);
-    var loginController = new LoginController(backendService, persistenceService, function(username){
+    var gameController = new GameController(backendService, persistenceService, sensorService);
+    var loginController = new LoginController(backendService, persistenceService, sensorService,function(username){
        gameController.display();
     });
 

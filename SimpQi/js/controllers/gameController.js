@@ -1,14 +1,15 @@
 class GameController {
-    constructor(backendService, persistenceService) {
+    constructor(backendService, persistenceService, sensorService) {
         this.backendService = backendService;
         this.persistenceService = persistenceService;
+        this.sensorService = sensorService;
 
         this.playerImages = [
             "img/player/p1.jpg",
             "img/player/p2.jpg",
             "img/player/p3.jpg",
             "img/player/p4.jpg"
-        ]
+        ];
 
         this.currentUser = persistenceService
             .loadFromLocalStorage('lastUsername');
@@ -24,9 +25,10 @@ class GameController {
 
     display() {
         $('.js-centered-body').empty();
-        renderPlayerCardWaiting(this.currentUser, this.playerImages[0]);
-        $('.js-centered-body').fadeIn(1000);
+        var self = this;
 
+        renderPlayerCardWaiting(self.currentUser, self.playerImages[0], this.sensorService.getCountry());
+        $('.js-centered-body').fadeIn(1000);
 
         setTimeout(function(){
             $('.js-centered-body').empty();
@@ -37,7 +39,7 @@ class GameController {
     }
 
     displayWaitingForQuestion() {
-        
+
     }
 
     displayQuestion(question) {
@@ -48,4 +50,4 @@ class GameController {
 
     }
 
- }
+}
