@@ -2,6 +2,7 @@ package at.fhj.server;
 
 import at.fhj.game.GameManager;
 import at.fhj.game.Player;
+import at.fhj.question.Question;
 
 import javax.websocket.*;
 
@@ -9,7 +10,8 @@ import javax.websocket.*;
 @javax.websocket.server.ServerEndpoint(
         value = "/quiz/",
         decoders = MessageDecoder.class,
-        encoders = {QuestionEncoder.class, ResultEncoder.class})
+        encoders = {ResultEncoder.class, QuestionEncoder.class}
+)
 public class ServerEndpoint {
     @OnOpen
     public void onOpen(Session session) {

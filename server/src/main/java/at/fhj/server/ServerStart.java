@@ -1,12 +1,17 @@
 package at.fhj.server;
 
+import at.fhj.question.QuestionPool;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.util.log.Log;
+import org.eclipse.jetty.util.log.StdErrLog;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 
 public class ServerStart {
     public static void main(String[] args) {
+        Log.setLog(new StdErrLog());
+
         var server = new Server();
         var connector = new ServerConnector(server);
         connector.setPort(8090);
@@ -20,6 +25,7 @@ public class ServerStart {
 
         try
         {
+            QuestionPool.INSTANCE.getClass().getSimpleName();
             // Initialize javax.websocket layer
             WebSocketServerContainerInitializer
                     .configureContext(context)

@@ -1,9 +1,12 @@
-package at.fhj;
+package at.fhj.question;
 
 import at.fhj.question.Question;
+import at.fhj.server.QuestionEncoder;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.websocket.EncodeException;
 import java.util.stream.Stream;
 
 public class QuestionTest {
@@ -49,5 +52,19 @@ public class QuestionTest {
         Stream.of(question.getAnswers()).forEach(answer ->
             Assert.assertNotEquals("4", answer)
         );
+    }
+    @Test
+    public void json() throws EncodeException {
+        var question = new Question("q", "a");
+        question.addWrongAnswer("b");
+        question.addWrongAnswer("c");
+        question.addWrongAnswer("d");
+
+        var json = String.format("{\"question\":\"%s\",\"correctAnswer\":%d,\"answers\":[\"%s\",\"%s\",\"%s\",\"%s\"]}",
+                question.getQuestion(), question.getCorrectAnswer(),
+                question.getAnswers()[0], question.getAnswers()[1], question.getAnswers()[2], question.getAnswers()[3]);
+
+        Assert.assertEquals(json, new QuestionEncoder().encode(question));
+        Assert.assertEquals("a", question.getAnswers()[question.getCorrectAnswer()]);
     }
 }

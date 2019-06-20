@@ -2,7 +2,6 @@ package at.fhj.game;
 
 import at.fhj.question.QuestionPool;
 
-import javax.websocket.Session;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +9,7 @@ class Game implements Runnable {
     private List<Player> players = new ArrayList<>();
 
     public List<Player> getPlayers() {
+        players.sort(new PlayerComparator());
         return players;
     }
 
@@ -24,9 +24,6 @@ class Game implements Runnable {
     @Override
     public void run() {
         var question = QuestionPool.INSTANCE.pop();
-        getPlayers().stream()
-                .map(Player::getSession)
-                .map(Session::getAsyncRemote)
-                .forEach(remote -> remote.sendObject(question));
+        getPlayers().forEach(player -> player.send(question));
     }
 }
