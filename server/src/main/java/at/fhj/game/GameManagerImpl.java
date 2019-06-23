@@ -1,5 +1,9 @@
 package at.fhj.game;
 
+import at.fhj.SimpQui;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -7,12 +11,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 class GameManagerImpl implements GameManager {
+    private Logger log = LoggerFactory.getLogger(GameManagerImpl.class);
+
     private final Set<Game> gameCache = Collections.synchronizedSet(new HashSet<Game>());
     private final Map<String, Player> playerCache = new ConcurrentHashMap<>();
     private final UserStatProducer statProducer = new UserStatProducer();
-
-    private static final int ROUND_TIME = 10;
-    private static final int ROUND_COUNT = 5;
 
     private Game openGame = new Game();
 
@@ -20,6 +23,7 @@ class GameManagerImpl implements GameManager {
     public void addPlayer(Player player) {
         openGame.addPlayer(player);
         if(openGame.isStartable()) {
+            log.debug("game starts");
             startGame(openGame);
             openGame = new Game();
         }
@@ -27,11 +31,13 @@ class GameManagerImpl implements GameManager {
 
     @Override
     public void correctAnswer(String username) {
+        log.debug("{} has the correct answer", username);
         playerCache.get(username).incCorrectAnswers();
     }
 
     @Override
     public void endGame(Game game) {
+        log.debug("game ended");
         var result = Result.of(game);
         for(var player : game.getPlayers()) {
             player.send(result);
@@ -45,9 +51,12 @@ class GameManagerImpl implements GameManager {
         gameCache.add(game);
         game.getPlayers().forEach(player -> playerCache.put(player.getUsername(), player));
 
+        var roundTime = Integer.parseInt(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.GameRoundTime));
+        var roundCount = Integer.parseInt(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.GameRoundCount));
+        log.debug("games lasts {} rounds, each {} seconds", roundCount, roundTime);
         var scheduler = Executors.newSingleThreadScheduledExecutor();
-        IntStream.range(0, ROUND_COUNT).forEach(i -> scheduler.schedule(game, ROUND_TIME*i, TimeUnit.SECONDS));
-        scheduler.schedule(new GameTerminator(game), (ROUND_TIME*ROUND_COUNT)+1, TimeUnit.SECONDS);
+        IntStream.range(0, roundCount).forEach(i -> scheduler.schedule(game, roundTime*i, TimeUnit.SECONDS));
+        scheduler.schedule(new GameTerminator(game), (roundTime*roundCount)+1, TimeUnit.SECONDS);
         scheduler.shutdown();
     }
 }

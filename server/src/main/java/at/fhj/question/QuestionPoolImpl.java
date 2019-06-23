@@ -1,14 +1,20 @@
 package at.fhj.question;
 
+import at.fhj.SimpQui;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 
 class QuestionPoolImpl implements QuestionPool{
-    private static final Queue<String> QUESTION_POOL = new LinkedList<>();
-    private static final LinkedList<String> ANSWER_POOL = new LinkedList<>();
+    private Logger log = LoggerFactory.getLogger(QuestionPoolImpl.class);
 
-    private static final BiConsumer<String, String> consumeRefill = (question, answer) -> {
+    private final Queue<String> QUESTION_POOL = new LinkedList<>();
+    private final LinkedList<String> ANSWER_POOL = new LinkedList<>();
+
+    private final BiConsumer<String, String> consumeRefill = (question, answer) -> {
         QUESTION_POOL.add(question);
         ANSWER_POOL.add(answer);
     };
@@ -17,8 +23,10 @@ class QuestionPoolImpl implements QuestionPool{
         tryRefill();
     }
 
-    private static void tryRefill() {
-        if(QUESTION_POOL.size() < 20) {
+    private void tryRefill() {
+        var refillSize = Integer.parseInt(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.QuestionPoolRefillSize));
+        if(QUESTION_POOL.size() < refillSize) {
+            log.debug("refill starts");
             new QuestionReceiver().receive(consumeRefill);
         }
     }

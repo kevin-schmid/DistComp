@@ -53,4 +53,9 @@ public class Question {
             answers[blankIndex] = answer;
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("Question:'%s' correctAnswer:'%s', answers:'%s'", question, correctAnswer, String.join(",", answers));
+    }
 }
