@@ -18,6 +18,7 @@ class GameController {
             "img/player/spongebob.jpg"
         ];
 
+        this.questionCounter = 0;
         this.currentUser = persistenceService
             .loadFromLocalStorage('lastUsername');
     }
@@ -40,7 +41,8 @@ class GameController {
     }
 
     displayQuestion(question) {
-        renderQuestion(question);
+        this.questionCounter++;
+        renderQuestion(question, this.questionCounter);
 
         $('.js-answer-selection-0').click(() => this.handleAnswer(question, 0));
         $('.js-answer-selection-1').click(() => this.handleAnswer(question, 1));
