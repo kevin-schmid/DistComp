@@ -14,6 +14,16 @@ var questions = [
     'question': 'Why do you still play this game',
     'answers': ['Because I hate life', 'Because I develop this game'],
     'correctAnswer': 1
+  },
+  {
+    'question': 'In which year was America discovered',
+    'answers': ['1490', '1492', '1494', '1496'],
+    'correctAnswer': 1
+  },
+  {
+    'question': 'Welches Tier kann nicht schwimmen',
+    'answers': ['Fisch', 'Fuchs', 'Emu', 'Nilpferd'],
+    'correctAnswer': 2
   }
 ]
 
@@ -59,7 +69,7 @@ function initializeClient(ws) {
     }
 
     if(message.messageType === 'correctAnswer') {
-      for(var i = 0; i < questions.length; i++) {
+      for(var i = 0; i < gameState.length; i++) {
         if(gameState[i].username === message.username) {
             gameState[i].points++;
             console.log(`'${message.username}' scored 1 point - has total of ${gameState[i].points} points`);

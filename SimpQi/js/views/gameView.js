@@ -49,6 +49,22 @@ const AnswerTemplate = `
         </div>
     </div>`;
 
+
+const ResultTemplate = `
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody class="js-results-body">
+        </tbody>
+    </table>
+
+    <div class="ui segment js-correct-answer">
+    </div>
+`;
 function renderPlayerCardWaiting(playerName, playerImageUrl, country) {
     $(document).attr("title", "SimpQi | Waiting");
     $('.game-header').hide();
@@ -83,4 +99,19 @@ function renderQuestion(question) {
     }
 
     $('.js-centered-body').html(template);
+}
+
+function renderResults(question, results) {
+    var allResults = "";
+    for(var i = 0; i < results.length; i++) {
+        allResults += `
+            <tr>
+                <td data-lable="username">${results[i].username}</td>
+                <td data-lable="points">${results[i].points}</td>
+            </tr>`
+    }
+
+    $('.js-centered-body').html(ResultTemplate); 
+    $('.js-results-body').html(allResults);
+    $('.js-correct-answer').html(`The correct answer was: ${question.getCorrectAnswer()}`)
 }

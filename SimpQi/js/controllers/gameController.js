@@ -13,6 +13,8 @@ class GameController {
 
         this.currentUser = persistenceService
             .loadFromLocalStorage('lastUsername');
+
+        this.lastQuestion = null;
     }
 
     initialize() {
@@ -30,6 +32,7 @@ class GameController {
     }
 
     displayQuestion(question) {
+        this.lastQuestion = question;
         $('.js-centered-body').empty();
         renderQuestion(question);
 
@@ -59,8 +62,7 @@ class GameController {
     }
 
     displayResults(results) {
-        for(var i = 0; i < results.length; i++) {
-            console.log(results[i]);
-        }
+        $('.js-centered-body').empty();
+        renderResults(this.lastQuestion, results);
     }
 }

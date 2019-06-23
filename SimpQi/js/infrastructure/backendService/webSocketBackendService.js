@@ -21,7 +21,7 @@ class WebSocketBackendService {
                 this.notifyNewQuestion(question);
             }
 
-            if(serverMessage.messageType !== 'results') {
+            if(serverMessage.messageType === 'results') {
                 console.log("New result: ", serverMessage);
                 this.notifyNewResults(serverMessage.results);
             }
