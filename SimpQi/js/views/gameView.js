@@ -40,8 +40,8 @@ const QuestionTemplate = `
 const AnswerTemplate = `            
     <div class="field">
         <div class="ui radio checkbox">
-            <label>
-                <input type="radio" name="answer" tabindex="0" class="hidden">
+            <label class="hidden">
+                <input type="radio" name="answer" tabindex="0">
             </label>
             <label class="answer js-answer"></label>
         </div>
