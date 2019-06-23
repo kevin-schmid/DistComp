@@ -3,6 +3,8 @@
 a simple JavaScript/HTML/CSS Singlepage Frontend for the SimpiQi Quiz Backend.
 
 ## Developers
+* Schmied Kevin
+* Walzl Martin
 * Sarcevic Lejla
 * Rehberger Raffael
 
@@ -18,3 +20,15 @@ a simple JavaScript/HTML/CSS Singlepage Frontend for the SimpiQi Quiz Backend.
 
 ## Features (as of this commit)
 * Login-Page with faked Backend-connection
+* WebSocket-Server
+* Ask users question out of a list
+* Peristence of username for further sessions
+* Fetching and displaying of User-Country by API-Lookup of Longitude Latitude
+
+
+## How do I run it?
+
+* Install dependencies ```npm install```
+* Start Server ```node server.js``` or ```nodemon server.js```
+* Open Frontend (open index.html)
+
