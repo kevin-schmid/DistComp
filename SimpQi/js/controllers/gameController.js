@@ -57,8 +57,10 @@ class GameController {
         $('.js-answer-selection-3').unbind('click');
         $('.js-answer-selection-'+question.correctAnswer+' > .answer').addClass('correct');
         if(question.correctAnswer === answerIndex) {
+            $('.choose').html('You have chosen wisely!');
             this.backendService.sendCorrectAnswer(this.currentUser);
         } else {
+            $('.choose').html('You chose poorly!');
             $('.js-answer-selection-'+answerIndex+' > .answer').addClass('wrong');
         }
     }
