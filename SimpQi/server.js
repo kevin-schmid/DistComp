@@ -2,7 +2,7 @@ const WebSocket = require('ws')
  
 const wss = new WebSocket.Server({ port: 1337 })
 
-var clients = []
+var clients = [];
 var gameState = []
 var gameInProgress = false;
 var questions = [
@@ -14,13 +14,11 @@ var questions = [
     'question': 'Why do you still play this game',
     'answers': ['Because I hate life', 'Because I develop this game'],
     'correctAnswer': 1
-  },
-  {
+  }, {
     'question': 'In which year was America discovered',
     'answers': ['1490', '1492', '1494', '1496'],
     'correctAnswer': 1
-  },
-  {
+  }, {
     'question': 'Welches Tier kann nicht schwimmen',
     'answers': ['Fisch', 'Fuchs', 'Emu', 'Nilpferd'],
     'correctAnswer': 2
@@ -42,7 +40,7 @@ function sendQuestion(question) {
 function beginGame() {
   gameInProgress = true;
   for(var i = 0; i < gameState.length; i++) {
-    if(gameState[i].points == questions.length) {
+    if(gameState[i].points === 1) {
       endGame();
       return;
     }
@@ -77,7 +75,7 @@ function initializeClient(ws) {
       }
     }
 
-    if(gameState.length === 2 && !gameInProgress) {
+    if(gameState.length === 1 && !gameInProgress) {
       console.log(`Total of ${gameState.length} players connected. Let's start the game`);
       beginGame();
     }

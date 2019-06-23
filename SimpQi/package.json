@@ -4,12 +4,14 @@
   "description": "Super Frontend for ze Simpquiz",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Sarcevic Lejla, Rehberger Raffael",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.17.1",
     "jquery": "^3.4.1",
+    "selenium-webdriver": "^4.0.0-alpha.3",
     "websocket": "^1.0.28",
     "ws": "^7.0.1"
   }

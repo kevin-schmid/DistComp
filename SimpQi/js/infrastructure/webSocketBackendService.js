@@ -1,19 +1,20 @@
 class WebSocketBackendService {
-    constructor(host, port) {
+    constructor(host, port, endpoint) {
         this.host = host;
         this.port = port;
+        this.endpoint = endpoint;
 
-        this.registeredGameEndCallbacks = []
-        this.registeredNewResultsCallbacks = []
-        this.registeredNewQuestionCallbacks = []
+        this.registeredGameEndCallbacks = [];
+        this.registeredNewResultsCallbacks = [];
+        this.registeredNewQuestionCallbacks = [];
 
-        this.ws = new WebSocket(`ws://${host}:${port}`);
+        this.ws = new WebSocket(`ws://${host}:${port}/${endpoint}`);
 
-        this.allMessages = []
+        this.allMessages = [];
 
         this.ws.onclose = (ev) => {
             this.notifyGameEnd();
-        }
+        };
 
         this.ws.onmessage = (msg) => {
             var serverMessage = JSON.parse(msg.data);
@@ -27,9 +28,14 @@ class WebSocketBackendService {
                 this.notifyNewQuestion(question);
             }
 
-            if(serverMessage.messageType === 'results') {
+            if(serverMessage.players !== undefined) {
                 console.log("New result: ", serverMessage);
-                this.notifyNewResults(serverMessage.results);
+
+                var players = serverMessage.players
+                    .map(r => new Player(r.username, r.correctAnswers));
+                var result = new Result(players);
+
+                this.notifyNewResults(result);
             }
         };
 
@@ -43,7 +49,8 @@ class WebSocketBackendService {
             }
         }
 
-        this.ws.send(JSON.stringify({'messageType': 'login', 'username': username, 'traceId': uuidv4()}));
+        this.ws.send(JSON.stringify({
+            'action': 'NEW_GAME', 'username': username, 'traceId': uuidv4()}));
 
         return {
             'success': true,
@@ -53,7 +60,7 @@ class WebSocketBackendService {
 
     sendCorrectAnswer(username){
         this.ws.send(JSON.stringify({
-            'messageType': 'correctAnswer',
+            'action': 'CORRECT_ANSWER',
             'username': username
         }));
     }

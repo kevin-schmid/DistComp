@@ -1,18 +1,15 @@
 class GameController {
-    constructor(backendService, persistenceService, sensorService, gameEndCallback) {
+    constructor(backendService, persistenceService, sensorService) {
         if(backendService === undefined)
             throw Error("BackendService may not be undefined");
         if(persistenceService === undefined) 
             throw Error("PersistenceService may not be undefined");
         if(sensorService === undefined)
             throw Error("SensorService may not be undefined");
-        if(gameEndCallback === undefined)
-            throw Error("GameEndCallback may not be undefined");
 
         this.backendService = backendService;
         this.persistenceService = persistenceService;
         this.sensorService = sensorService;
-        this.gameEndCallback = gameEndCallback;
 
         this.playerImages = [
             "img/player/freddie.jpg",
@@ -21,18 +18,14 @@ class GameController {
             "img/player/spongebob.jpg"
         ];
 
+        this.questionCounter = 0;
         this.currentUser = persistenceService
             .loadFromLocalStorage('lastUsername');
-
-        this.lastResults = null;
-        this.lastQuestion = null;
     }
 
     initialize() {
         /* wire up backendService-events */
         this.backendService.registerOnNewQuestion((question) => this.displayQuestion(question));
-        this.backendService.registerOnNewResults((results) => this.displayResults(results));
-        this.backendService.registerOnGameEnd(() =>  this.gameEndCallback(this.lastResults));
     }
 
     displayWaitingForPlayers() {
@@ -48,8 +41,8 @@ class GameController {
     }
 
     displayQuestion(question) {
-        this.lastQuestion = question;
-        renderQuestion(question);
+        this.questionCounter++;
+        renderQuestion(question, this.questionCounter);
 
         $('.js-answer-selection-0').click(() => this.handleAnswer(question, 0));
         $('.js-answer-selection-1').click(() => this.handleAnswer(question, 1));
@@ -74,11 +67,6 @@ class GameController {
     handleWrongAnswer() {
         $('.js-centered-body').empty();
         $('.js-centered-body').html('<h1>Wrooooooong</h1>');
-    }
-
-    displayResults(results) {
-        this.lastResults = results;
-        renderResults(this.lastQuestion, results);
     }
 }
 

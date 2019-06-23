@@ -30,9 +30,7 @@ const PlayerCardTemplate = `
 const QuestionTemplate = `
     <div class="inline fields">
         <div class="message">
-            <div class="currentQuestion">
-                -Question Number 1-
-            </div>
+            <div class="currentQuestion js-current-question"></div>
             <p class="info js-question"></p>
         </div>
         <label class="choose">Choose your answer wisely!</label>
@@ -84,7 +82,7 @@ function renderAnswer(answer, answerIndex) {
     return template.html();
 }
 
-function renderQuestion(question) {
+function renderQuestion(question, questionNumber) {
     $(document).attr("title", "SimpQi | Gametime");
     $('.game-header').show();
     $('.js-centered-body').empty();
@@ -98,24 +96,6 @@ function renderQuestion(question) {
         templatesCombined += renderedTemplate;
         template.find('.js-answers').html(templatesCombined);
     }
-
+    $(template).find('.js-current-question').text(`- Question Number: ${questionNumber} -`);
     $('.js-centered-body').html(template);
-}
-
-function renderResults(question, results) {
-    $(document).attr("title", "SimpQi | Results");
-    $('.game-header').show();
-    $('.js-centered-body').empty();
-
-    var allResults = results
-        .sort(function(r1, r2) { return r2.points - r1.points })
-        .map(r => `<tr>
-                    <td data-lable="username">${r.username}</td>
-                    <td data-lable="points">${r.points}</td>
-                </tr>`)
-        .join('');
-
-    $('.js-centered-body').html(ResultTemplate); 
-    $('.js-results-body').html(allResults);
-    $('.js-correct-answer').html(`The correct answer was: ${question.getCorrectAnswer()}`)
 }
