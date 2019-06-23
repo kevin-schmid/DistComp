@@ -12,12 +12,15 @@ $(document).ready(function() {
 
     var backendService = new WebSocketBackendService("localhost", 8090, 'quiz/');
 
-    var statsController = new StatsController(backendService, persistenceService);
-
     var gameController = new GameController( /* handles game */
         backendService, 
         persistenceService, 
         sensorService);
+
+    var statsController = new StatsController( /* handles result screen */
+        backendService, 
+        persistenceService, 
+        () => gameController.displayWaitingForPlayers());
 
     var loginController = new LoginController( /* handles login */
         backendService, 

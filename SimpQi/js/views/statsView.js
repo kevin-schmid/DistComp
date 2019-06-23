@@ -27,6 +27,7 @@ const StatsTemplate = `
         <tbody class="js-results-body">
         </tbody>
     </table>
+    <div class="ui blue submit button js-again-button">Another round?</div>
 </div>
 `;
 
