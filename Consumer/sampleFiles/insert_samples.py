@@ -8,11 +8,11 @@ db = client.test
 mycol = db["players"]
 
 mylist = [
-  { "user": "kevin", "games_won": "1", "games_lost": "0", "ranking" : "5"},
-  { "user": "kevin1", "games_won": "2", "games_lost": "0", "ranking" : "4"},
-  { "user": "kevin2", "games_won": "3", "games_lost": "0", "ranking" : "3"},
-  { "user": "kevin3", "games_won": "4", "games_lost": "0", "ranking" : "2"},
-  { "user": "kevin4", "games_won": "5", "games_lost": "0", "ranking" : "1"}
+  { "user": "kevin", "games_won": "1", "games_lost": "400", "ranking" : "5"},
+  { "user": "kevin1", "games_won": "2", "games_lost": "300", "ranking" : "4"},
+  { "user": "kevin2", "games_won": "3", "games_lost": "200", "ranking" : "3"},
+  { "user": "kevin3", "games_won": "4", "games_lost": "100", "ranking" : "2"},
+  { "user": "kevin4", "games_won": "5", "games_lost": "10", "ranking" : "1"}
 ]
 
 x = mycol.insert_many(mylist)
