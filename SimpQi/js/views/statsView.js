@@ -51,7 +51,7 @@ function renderStats(username, results) {
             var rowTemplate = $(StatsTableRow);
             rowTemplate.find('.js-points').html(p.getCorrectAnswersCount());
             rowTemplate.find('.js-username').html(p.getUsername());
-            return rowTemplate.html();
+            return '<tr>'+rowTemplate.html()+'</tr>';
         })
         .join('');
 
