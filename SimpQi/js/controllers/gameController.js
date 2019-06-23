@@ -30,7 +30,6 @@ class GameController {
         this.backendService.registerOnNewResults((results) => this.displayResults(results));
     }
 
-
     displayWaitingForPlayers() {
         renderPlayerCardWaiting(
             this.currentUser, 

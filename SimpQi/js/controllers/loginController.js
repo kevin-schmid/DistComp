@@ -2,7 +2,7 @@ class LoginController {
     constructor(backendService, persistenceService, sensorService, loginSuccessCallback) {
         if(backendService === undefined)
             throw Error("BackendService may not be undefined");
-        if(persistenceService === undefined) 
+        if(persistenceService === undefined)
             throw Error("PersistenceService may not be undefined");
         if(sensorService === undefined)
             throw Error("SensorService may not be undefined");
@@ -19,7 +19,7 @@ class LoginController {
         renderLogin();
         this.initialize();
     }
-
+    
     initialize() {
         var self = this;
 
@@ -37,14 +37,19 @@ class LoginController {
         });
 
         /* User clicks Login-Button */
-        $('.js-login-button').on("click", function() { 
-            self.tryLogin();
+        $('.js-login-button').on("click", function() {
+            if(self.sensorService.getCountry() !== 'Somewhere') {
+                self.tryLogin();
+            } else {
+                this.flashLoginError('Please wait until Game is initialized');
+            }
         });
     }
 
     tryLogin() {
         var username = $('.js-username-input').val();
         var loginResult = this.backendService.tryLogin(username);
+
         if(loginResult.success === false) {
             this.sensorService.vibrate([100, 100]);
             this.flashLoginError(loginResult.message);

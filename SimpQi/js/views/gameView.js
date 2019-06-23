@@ -108,6 +108,7 @@ function renderResults(question, results) {
     $('.js-centered-body').empty();
 
     var allResults = results
+        .sort(function(r1, r2) { return r2.points - r1.points })
         .map(r => `<tr>
                     <td data-lable="username">${r.username}</td>
                     <td data-lable="points">${r.points}</td>
