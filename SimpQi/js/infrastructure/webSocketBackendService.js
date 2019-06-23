@@ -3,12 +3,18 @@ class WebSocketBackendService {
         this.host = host;
         this.port = port;
 
+        this.registeredGameEndCallbacks = []
         this.registeredNewResultsCallbacks = []
         this.registeredNewQuestionCallbacks = []
 
         this.ws = new WebSocket(`ws://${host}:${port}`);
 
         this.allMessages = []
+
+        this.ws.onclose = (ev) => {
+            this.notifyGameEnd();
+        }
+
         this.ws.onmessage = (msg) => {
             var serverMessage = JSON.parse(msg.data);
             this.allMessages.push(serverMessage);
@@ -70,6 +76,16 @@ class WebSocketBackendService {
 
     registerOnNewResults(callback) {
         this.registeredNewResultsCallbacks.push(callback);
+    }
+
+    notifyGameEnd() {
+        for(var i = 0; i < this.registeredGameEndCallbacks.length; i++) {
+            this.registeredGameEndCallbacks[i]();
+        }
+    }
+
+    registerOnGameEnd(callback) {
+        this.registeredGameEndCallbacks.push(callback);
     }
 }
 

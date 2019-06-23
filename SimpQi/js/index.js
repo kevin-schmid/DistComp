@@ -12,10 +12,13 @@ $(document).ready(function() {
 
     var backendService = new WebSocketBackendService("localhost", 1337);
 
+    var statsController = new StatsController(persistenceService);
+
     var gameController = new GameController( /* handles game */
         backendService, 
         persistenceService, 
-        sensorService);
+        sensorService,
+        (results) => statsController.display(results));
 
     var loginController = new LoginController( /* handles login */
         backendService, 

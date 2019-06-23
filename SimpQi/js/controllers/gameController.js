@@ -1,15 +1,18 @@
 class GameController {
-    constructor(backendService, persistenceService, sensorService) {
-        this.backendService = backendService;
-        this.persistenceService = persistenceService;
-        this.sensorService = sensorService;
-
+    constructor(backendService, persistenceService, sensorService, gameEndCallback) {
         if(backendService === undefined)
             throw Error("BackendService may not be undefined");
         if(persistenceService === undefined) 
             throw Error("PersistenceService may not be undefined");
         if(sensorService === undefined)
             throw Error("SensorService may not be undefined");
+        if(gameEndCallback === undefined)
+            throw Error("GameEndCallback may not be undefined");
+
+        this.backendService = backendService;
+        this.persistenceService = persistenceService;
+        this.sensorService = sensorService;
+        this.gameEndCallback = gameEndCallback;
 
         this.playerImages = [
             "img/player/freddie.jpg",
@@ -21,6 +24,7 @@ class GameController {
         this.currentUser = persistenceService
             .loadFromLocalStorage('lastUsername');
 
+        this.lastResults = null;
         this.lastQuestion = null;
     }
 
@@ -28,9 +32,13 @@ class GameController {
         /* wire up backendService-events */
         this.backendService.registerOnNewQuestion((question) => this.displayQuestion(question));
         this.backendService.registerOnNewResults((results) => this.displayResults(results));
+        this.backendService.registerOnGameEnd(() =>  this.gameEndCallback(this.lastResults));
     }
 
     displayWaitingForPlayers() {
+        this.currentUser = this.persistenceService
+            .loadFromLocalStorage('lastUsername');
+
         renderPlayerCardWaiting(
             this.currentUser, 
             randomChoose(this.playerImages), 
@@ -69,6 +77,7 @@ class GameController {
     }
 
     displayResults(results) {
+        this.lastResults = results;
         renderResults(this.lastQuestion, results);
     }
 }

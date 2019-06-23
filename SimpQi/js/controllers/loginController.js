@@ -41,7 +41,7 @@ class LoginController {
             if(self.sensorService.getCountry() !== 'Somewhere') {
                 self.tryLogin();
             } else {
-                this.flashLoginError('Please wait until Game is initialized');
+                self.flashLoginError('Please wait until Game is initialized');
             }
         });
     }

@@ -1,18 +1,3 @@
-.headerResult {
-    padding: 5%;
-    text-align: center;
-    background-image: url("../image/banner.png");
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
-.headerResult h1 {
-    color: white;
-    font-size: 7vw;
-    font-family: Roboto, sans-serif;
-
-}
-
 .table-container {
     margin-left: 39.5%;
 }
