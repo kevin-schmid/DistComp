@@ -11,6 +11,18 @@ repositories {
     mavenCentral()
 }
 
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'SimpQui Server Jar',
+                'Implementation-Version': version,
+                'Main-Class': 'at.fhj.server.ServerStart'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
