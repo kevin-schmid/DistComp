@@ -27,6 +27,7 @@ const StatsTemplate = `
         <tbody class="js-results-body">
         </tbody>
     </table>
+    <div class="ui blue submit button js-again-button">Another round?</div>
 </div>
 `;
 
@@ -50,7 +51,7 @@ function renderStats(username, results) {
             var rowTemplate = $(StatsTableRow);
             rowTemplate.find('.js-points').html(p.getCorrectAnswersCount());
             rowTemplate.find('.js-username').html(p.getUsername());
-            return rowTemplate.html();
+            return '<tr>'+rowTemplate.html()+'</tr>';
         })
         .join('');
 

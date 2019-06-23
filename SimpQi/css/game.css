@@ -52,6 +52,10 @@
     display: inline-block;
 }
 
+.hidden {
+    display: none !important;
+}
+
 .answer{
     padding: 2.5%;
     font-size: 1.7vw;
@@ -63,4 +67,10 @@
     text-align: left;
 }
 
+.correct {
+    background-color: #4CAF50;
+}
 
+.wrong {
+    background-color: #F44336;
+}

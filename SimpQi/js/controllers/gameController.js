@@ -51,22 +51,18 @@ class GameController {
     }
 
     handleAnswer(question, answerIndex) {
+        $('.js-answer-selection-0').unbind('click');
+        $('.js-answer-selection-1').unbind('click');
+        $('.js-answer-selection-2').unbind('click');
+        $('.js-answer-selection-3').unbind('click');
+        $('.js-answer-selection-'+question.correctAnswer+' > .answer').addClass('correct');
         if(question.correctAnswer === answerIndex) {
-            this.handleCorrectAnswer();
+            $('.choose').html('You have chosen wisely!');
+            this.backendService.sendCorrectAnswer(this.currentUser);
         } else {
-            this.handleWrongAnswer();
+            $('.choose').html('You chose poorly!');
+            $('.js-answer-selection-'+answerIndex+' > .answer').addClass('wrong');
         }
-    }
-
-    handleCorrectAnswer() {
-        $('.js-centered-body').empty();
-        $('.js-centered-body').html('<h1>Where you toooooo fast</h1>');
-        this.backendService.sendCorrectAnswer(this.currentUser);
-    }
-
-    handleWrongAnswer() {
-        $('.js-centered-body').empty();
-        $('.js-centered-body').html('<h1>Wrooooooong</h1>');
     }
 }
 

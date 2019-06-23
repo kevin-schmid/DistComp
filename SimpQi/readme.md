@@ -3,10 +3,10 @@
 a simple JavaScript/HTML/CSS SPA (=Single-Page-Application)-Frontend for the SimpQi Quiz Backend (/server)
 
 ## Developers
-* Schmied Kevin
-* Walzl Martin
-* Sarcevic Lejla
 * Rehberger Raffael
+* Sarcevic Lejla
+* Schmid Kevin
+* Walzl Martin
 
 ---
 
