@@ -10,15 +10,14 @@ $(document).ready(function() {
             alert(renderSimpQiUnsupportedError("Browser does not support Session-/LocalStorage."));
     }
 
-    var backendService = new WebSocketBackendService("localhost", 1337);
+    var backendService = new WebSocketBackendService("localhost", 8090, 'quiz/');
 
-    var statsController = new StatsController(persistenceService);
+    var statsController = new StatsController(backendService, persistenceService);
 
     var gameController = new GameController( /* handles game */
         backendService, 
         persistenceService, 
-        sensorService,
-        (results) => statsController.display(results));
+        sensorService);
 
     var loginController = new LoginController( /* handles login */
         backendService, 

@@ -2,7 +2,7 @@ const WebSocket = require('ws')
  
 const wss = new WebSocket.Server({ port: 1337 })
 
-var clients = []
+var clients = [];
 var gameState = []
 var gameInProgress = false;
 var questions = [

@@ -14,7 +14,7 @@ const StatsTableRow = `
 
 const StatsTemplate = `
 <div class="intro">
-    <h2>You win / lose!!</h2>
+    <div class="js-title"></div>
 </div>
 <div class="ui container table-container">
     <table class="ui very basic collapsing celled table">
@@ -33,15 +33,23 @@ const StatsTemplate = `
 function renderStats(username, results) {
     $(document).attr("title", "SimpQi | Stats");
     $('.game-header').show();
+    $('.js-header-title').text("Results");
     $('.js-centered-body').html(StatsTemplate);
-    
 
-    var allResults = results
-        .sort(function(r1, r2) { return r2.points - r1.points })
-        .map(r => {
+    var players = results.getPlayerResults();
+
+    var maxPoints = Math.max(...(players.map(p => p.getCorrectAnswersCount())));
+    console.log(maxPoints);
+    var playersWithMaxPoints = players
+        .filter(p => p.getCorrectAnswersCount() === maxPoints)
+        .map(p => p.getUsername());
+    console.log(playersWithMaxPoints);
+    var allResults = players
+        .sort(function(p1, p2) { return p2.getCorrectAnswersCount() - p1.getCorrectAnswersCount() })
+        .map(p => {
             var rowTemplate = $(StatsTableRow);
-            rowTemplate.find('.js-points').html(r.points);
-            rowTemplate.find('.js-username').html(r.username);
+            rowTemplate.find('.js-points').html(p.getCorrectAnswersCount());
+            rowTemplate.find('.js-username').html(p.getUsername());
             return rowTemplate.html();
         })
         .join('');
@@ -49,5 +57,6 @@ function renderStats(username, results) {
     console.log(allResults);
     
     $('.js-results-body').html(allResults);
+    playersWithMaxPoints.forEach(p => $('.js-title').append(`<h2>${p} wins.</h2>`));
 
 }
