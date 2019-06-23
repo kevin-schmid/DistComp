@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 class GameManagerImpl implements GameManager {
     private final Set<Game> gameCache = Collections.synchronizedSet(new HashSet<Game>());
     private final Map<String, Player> playerCache = new ConcurrentHashMap<>();
+    private final UserStatProducer statProducer = new UserStatProducer();
 
     private static final int ROUND_TIME = 10;
     private static final int ROUND_COUNT = 5;
@@ -36,6 +37,7 @@ class GameManagerImpl implements GameManager {
             player.send(result);
             playerCache.remove(player.getUsername());
         }
+        statProducer.send(result);
         gameCache.remove(game);
     }
 
