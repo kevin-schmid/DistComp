@@ -51,6 +51,8 @@ const AnswerTemplate = `
 
 function renderPlayerCardWaiting(playerName, playerImageUrl, country) {
     $(document).attr("title", "SimpQi | Waiting");
+    $('.game-header').hide();
+    
     var template = $(PlayerCardTemplate);
     template.find('.js-card-name').text(playerName);
     template.find('.js-card-image').attr('src', playerImageUrl);
@@ -62,7 +64,7 @@ function renderPlayerCardWaiting(playerName, playerImageUrl, country) {
 function renderAnswer(answer, answerIndex) {
     var template = $(AnswerTemplate);
     template.find('.js-answer').text(answer);
-    template.find('.checkbox').addClass(`js-answer-selection-${answerIndex}`);
+    template.find('.checkbox').addClass(`js-answer-selection-${answerIndex}`).addClass('js-answer');
     return template.html();
 }
 

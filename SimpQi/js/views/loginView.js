@@ -23,5 +23,6 @@ const LoginTemplate = `
 
 function renderLogin() {
     $(document).attr("title", "SimpQi | Login");
+    $('.game-header').hide();
     $('.js-centered-body').html(LoginTemplate);
 }

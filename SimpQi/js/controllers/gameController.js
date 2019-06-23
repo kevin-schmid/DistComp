@@ -17,37 +17,50 @@ class GameController {
 
     initialize() {
         /* wire up backendService-events */
-        /* if game started, no message received - displayWaitingForQuestion() */
-        /* if message question-received - displayQuestion() */
-        /* if questionAnswered, displayRank() */
+        this.backendService.registerOnNewQuestion((question) => this.displayQuestion(question));
+        this.backendService.registerOnNewResults((results) => this.displayResults(results));
     }
 
 
     display() {
         $('.js-centered-body').empty();
-        var self = this;
-
-        renderPlayerCardWaiting(self.currentUser, self.playerImages[0], this.sensorService.getCountry());
+        renderPlayerCardWaiting(this.currentUser, this.playerImages[0], this.sensorService.getCountry());
         $('.js-centered-body').fadeIn(1000);
-
-        setTimeout(function(){
-            $('.js-centered-body').empty();
-            renderQuestion(new Question("Warum ist die Banane krumm?", [
-                "Weiß nicht", "Darum", "Hab Angst", "Weil sie gelb ist"], 3));
-        }, 1000);
         this.initialize();
     }
 
-    displayWaitingForQuestion() {
-
-    }
-
     displayQuestion(question) {
+        $('.js-centered-body').empty();
+        renderQuestion(question);
 
+        $('.js-answer-selection-0').click(() => this.handleAnswer(question, 0));
+        $('.js-answer-selection-1').click(() => this.handleAnswer(question, 1));
+        $('.js-answer-selection-2').click(() => this.handleAnswer(question, 2));
+        $('.js-answer-selection-3').click(() => this.handleAnswer(question, 3));
     }
 
-    displayRank() {
-
+    handleAnswer(question, answerIndex) {
+        if(question.correctAnswer === answerIndex) {
+            this.handleCorrectAnswer();
+        } else {
+            this.handleWrongAnswer();
+        }
     }
 
+    handleCorrectAnswer() {
+        $('.js-centered-body').empty();
+        $('.js-centered-body').html('<h1>Where you toooooo fast</h1>');
+        this.backendService.sendCorrectAnswer(this.currentUser);
+    }
+
+    handleWrongAnswer() {
+        $('.js-centered-body').empty();
+        $('.js-centered-body').html('<h1>Wrooooooong</h1>');
+    }
+
+    displayResults(results) {
+        for(var i = 0; i < results.length; i++) {
+            console.log(results[i]);
+        }
+    }
 }
