@@ -31,6 +31,9 @@ public class ServerEndpoint {
             case CORRECT_ANSWER:
                 GameManager.INSTANCE.correctAnswer(message.getUsername());
                 break;
+            case USER_STAT:
+
+                break;
         }
     }
 
