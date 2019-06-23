@@ -2,7 +2,9 @@ const WebSocket = require('ws')
  
 const wss = new WebSocket.Server({ port: 1337 })
 
+var clients = []
 var gameState = []
+var gameInProgress = false;
 var questions = [
   {
     'question': 'Is it true, that you duck?',
@@ -15,35 +17,39 @@ var questions = [
   }
 ]
 
-wss.on('connection', ws => {
-  function sendResults() {
-    console.log("Round over: ", gameState);
-    ws.send(JSON.stringify({'messageType': 'results', 'results': gameState}), 15000);
-    setTimeout(beginGame, 5000);
-  }
+function sendResults() {
+  console.log("Round over: ", gameState);
+  clients.forEach(ws => ws.send(JSON.stringify({'messageType': 'results', 'results': gameState}), 15000));
+  setTimeout(beginGame, 5000);
+}
 
-  function sendQuestion(question) {
-    console.log('Question: ', question.question);
-    ws.send(JSON.stringify(question));
-    setTimeout(sendResults, 5000);
-  }
+function sendQuestion(question) {
+  console.log('Question: ', question.question);
+  clients.forEach(ws => ws.send(JSON.stringify(question)));
+  setTimeout(sendResults, 5000);
+}
 
-  function beginGame() {
-    for(var i = 0; i < gameState.length; i++) {
-      if(gameState[i].points == questions.length) {
-        endGame();
-      }
+function beginGame() {
+  gameInProgress = true;
+  for(var i = 0; i < gameState.length; i++) {
+    if(gameState[i].points == questions.length) {
+      endGame();
     }
-    var questionIndex = getRandom(0, questions.length-1);
-    setTimeout(() => sendQuestion(questions[questionIndex]), 5000);
   }
+  var questionIndex = getRandom(0, questions.length-1);
+  setTimeout(() => sendQuestion(questions[questionIndex]), 5000);
+}
 
-  function endGame() {
-      // send results
-      console.log("Game finisehd");
-      gameState = []
-  }
- 
+function endGame() {
+    // send results
+    console.log("Game finisehd");
+    gameState = []
+    clients.forEach(ws => ws.close());
+}
+
+wss.on('connection', ws => {
+  clients.push(ws);
+
   ws.on('message', msg => {
       var message = JSON.parse(msg);
       if(message.messageType === 'login') {
@@ -60,7 +66,7 @@ wss.on('connection', ws => {
         }
       }
 
-      if(gameState.length === 1) {
+      if(gameState.length === 2 && !gameInProgress) {
         console.log(`Total of ${gameState.length} players connected. Let's start the game`);
         beginGame();
       }
