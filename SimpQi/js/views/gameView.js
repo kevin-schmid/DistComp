@@ -87,6 +87,7 @@ function renderAnswer(answer, answerIndex) {
 function renderQuestion(question) {
     $(document).attr("title", "SimpQi | Gametime");
     $('.game-header').show();
+    $('.js-centered-body').empty();
 
     var template = $(QuestionTemplate);
     template.find('.js-question').text(question.getQuestion());
@@ -102,14 +103,16 @@ function renderQuestion(question) {
 }
 
 function renderResults(question, results) {
-    var allResults = "";
-    for(var i = 0; i < results.length; i++) {
-        allResults += `
-            <tr>
-                <td data-lable="username">${results[i].username}</td>
-                <td data-lable="points">${results[i].points}</td>
-            </tr>`
-    }
+    $(document).attr("title", "SimpQi | Results");
+    $('.game-header').show();
+    $('.js-centered-body').empty();
+
+    var allResults = results
+        .map(r => `<tr>
+                    <td data-lable="username">${r.username}</td>
+                    <td data-lable="points">${r.points}</td>
+                </tr>`)
+        .join('');
 
     $('.js-centered-body').html(ResultTemplate); 
     $('.js-results-body').html(allResults);

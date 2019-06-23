@@ -32,15 +32,16 @@ class GameController {
 
 
     displayWaitingForPlayers() {
-        $('.js-centered-body').empty();
-        renderPlayerCardWaiting(this.currentUser, this.playerImages[0], this.sensorService.getCountry());
-        $('.js-centered-body').fadeIn(1000);
+        renderPlayerCardWaiting(
+            this.currentUser, 
+            randomChoose(this.playerImages), 
+            this.sensorService.getCountry());
+
         this.initialize();
     }
 
     displayQuestion(question) {
         this.lastQuestion = question;
-        $('.js-centered-body').empty();
         renderQuestion(question);
 
         $('.js-answer-selection-0').click(() => this.handleAnswer(question, 0));
@@ -69,7 +70,11 @@ class GameController {
     }
 
     displayResults(results) {
-        $('.js-centered-body').empty();
         renderResults(this.lastQuestion, results);
     }
 }
+
+function randomChoose(choices) {
+    var index = Math.floor(Math.random() * choices.length);
+    return choices[index];
+  }
