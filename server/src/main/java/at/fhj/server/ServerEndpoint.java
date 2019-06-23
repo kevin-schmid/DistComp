@@ -3,6 +3,8 @@ package at.fhj.server;
 import at.fhj.game.GameManager;
 import at.fhj.game.Player;
 import at.fhj.question.Question;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.websocket.*;
 
@@ -13,13 +15,16 @@ import javax.websocket.*;
         encoders = {ResultEncoder.class, QuestionEncoder.class}
 )
 public class ServerEndpoint {
+    Logger logger = LoggerFactory.getLogger(ServerEndpoint.class);
+
     @OnOpen
     public void onOpen(Session session) {
-        System.out.printf("onOpen: sessionId='%s' \n", session.getId());
+        logger.debug("onOpen: sessionId='%s' \n", session.getId());
     }
 
     @OnMessage
     public void onMessage(Session session, ClientMessage message) {
+        logger.debug("onMessage: sessionId='%s', message='%s' \n", session.getId(), message);
         switch (message.getAction()) {
             case NEW_GAME:
                 GameManager.INSTANCE.addPlayer(new Player(message.getUsername(), session));
@@ -28,17 +33,15 @@ public class ServerEndpoint {
                 GameManager.INSTANCE.correctAnswer(message.getUsername());
                 break;
         }
-        System.out.printf("onMessage: sessionId='%s', message='%s' \n", session.getId(), message);
     }
 
     @OnClose
     public void onClose(Session session) {
-        System.out.printf("onClose: sessionId='%s' \n", session.getId());
+        logger.debug("onClose: sessionId='%s' \n", session.getId());
     }
 
     @OnError
     public void onError(Session session, Throwable throwable) {
-        System.out.printf("onError: sessionId='%s' \n", session.getId());
-        throwable.printStackTrace(System.err);
+        logger.error("onError: sessionId='%s' \n", session.getId(), throwable);
     }
 }

@@ -1,0 +1,52 @@
+.headerResult {
+    padding: 5%;
+    text-align: center;
+    background-image: url("../image/banner.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.headerResult h1 {
+    color: white;
+    font-size: 7vw;
+    font-family: Roboto, sans-serif;
+
+}
+
+.table-container {
+    margin-left: 39.5%;
+}
+
+.heading {
+    font-size: 1.8vw;
+}
+
+.table-container table tbody {
+    font-size: 1.6vw;
+}
+
+.content {
+    font-size: 1.6vw;
+}
+
+.suber {
+    padding-top: 7%;
+    font-size: 1vw;
+    color: gray;
+}
+
+.intro {
+    text-align: center;
+    padding-bottom: 2%;
+    font-family: Roboto, sans-serif;
+}
+
+.intro h2 {
+    font-size: 7vw;
+}
+
+@media only screen and (max-width: 800px) {
+    .table-container {
+        margin-left: 39.7%;
+    }
+}

@@ -31,7 +31,7 @@ const QuestionTemplate = `
     <div class="inline fields">
         <div class="message">
             <div class="currentQuestion">
-                Question Number 1
+                -Question Number 1-
             </div>
             <p class="info js-question"></p>
         </div>
