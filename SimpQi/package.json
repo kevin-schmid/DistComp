@@ -9,6 +9,8 @@
   "author": "Sarcevic Lejla, Rehberger Raffael",
   "license": "MIT",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "websocket": "^1.0.28",
+    "ws": "^7.0.1"
   }
 }
