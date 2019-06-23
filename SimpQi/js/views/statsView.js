@@ -5,7 +5,6 @@ const StatsTableRow = `
             <img src="img/player/freddie.jpg" class="ui mini rounded image" alt="pic">
             <div class="content">
                 <div class="js-username"></div>
-                <div class="suber"></div>
             </div>
         </h4>
     </td>
@@ -16,7 +15,7 @@ const StatsTemplate = `
 <div class="intro">
     <div class="js-title"></div>
 </div>
-<div class="ui container table-container">
+<div class="table-container">
     <table class="ui very basic collapsing celled table">
         <thead class="heading">
         <tr>
