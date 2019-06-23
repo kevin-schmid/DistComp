@@ -4,6 +4,13 @@ class GameController {
         this.persistenceService = persistenceService;
         this.sensorService = sensorService;
 
+        if(backendService === undefined)
+            throw Error("BackendService may not be undefined");
+        if(persistenceService === undefined) 
+            throw Error("PersistenceService may not be undefined");
+        if(sensorService === undefined)
+            throw Error("SensorService may not be undefined");
+
         this.playerImages = [
             "img/player/freddie.jpg",
             "img/player/freddie2.jpg",
@@ -24,7 +31,7 @@ class GameController {
     }
 
 
-    display() {
+    displayWaitingForPlayers() {
         $('.js-centered-body').empty();
         renderPlayerCardWaiting(this.currentUser, this.playerImages[0], this.sensorService.getCountry());
         $('.js-centered-body').fadeIn(1000);

@@ -1,14 +1,16 @@
-class Sensors {
+class SensorService {
     constructor() {
-        this.longitude = 0;
         this.latitude = 0;
-        this.country = 'Unknown';
+        this.longitude = 0;
+        this.country = 'Somewhere';
 
-        if(navigator === undefined) {
-            throw Error("Your browser does not Support the Sensor API");
+        if(this.clientSupportsSensors()) {
+            navigator.geolocation.getCurrentPosition((pos) => this.setCurrentPosition(pos));
         }
+    }
 
-        navigator.geolocation.getCurrentPosition((pos) => this.setCurrentPosition(pos));
+    clientSupportsSensors() {
+        return navigator !== undefined;
     }
 
     setCurrentPosition(position) {
