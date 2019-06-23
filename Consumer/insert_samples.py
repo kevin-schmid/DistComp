@@ -1,10 +1,11 @@
 
-import pymongo as pymongo
+import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://admin:<password>@cluster0-u60tn.gcp.mongodb.net/test?retryWrites=true&w=majority")
+#client = pymongo.MongoClient("mongodb://cluster0-u60tn.gcp.mongodb.net/")
+client = pymongo.MongoClient("mongodb://admin:admin@cluster0-shard-00-00-u60tn.gcp.mongodb.net:27017,cluster0-shard-00-01-u60tn.gcp.mongodb.net:27017,cluster0-shard-00-02-u60tn.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority")
 db = client.test
 
-mycol = db["customers"]
+mycol = db["players"]
 
 mylist = [
   { "user": "kevin", "games_won": "1", "games_lost": "0", "ranking" : "5"},
