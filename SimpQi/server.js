@@ -34,6 +34,7 @@ function beginGame() {
   for(var i = 0; i < gameState.length; i++) {
     if(gameState[i].points == questions.length) {
       endGame();
+      return;
     }
   }
   var questionIndex = getRandom(0, questions.length-1);
@@ -43,34 +44,41 @@ function beginGame() {
 function endGame() {
     // send results
     console.log("Game finisehd");
-    gameState = []
+    gameInProgress = false;
+    gameState = [];
     clients.forEach(ws => ws.close());
+    clients = [];
+}
+
+function initializeClient(ws) {
+  ws.on('message', msg => {
+    var message = JSON.parse(msg);
+    if(message.messageType === 'login') {
+      gameState.push({'username': message.username, 'points': 0});
+      console.log(`User '${message.username}' joined game!`);
+    }
+
+    if(message.messageType === 'correctAnswer') {
+      for(var i = 0; i < questions.length; i++) {
+        if(gameState[i].username === message.username) {
+            gameState[i].points++;
+            console.log(`'${message.username}' scored 1 point - has total of ${gameState[i].points} points`);
+        }
+      }
+    }
+
+    if(gameState.length === 2 && !gameInProgress) {
+      console.log(`Total of ${gameState.length} players connected. Let's start the game`);
+      beginGame();
+    }
+  });
 }
 
 wss.on('connection', ws => {
-  clients.push(ws);
-
-  ws.on('message', msg => {
-      var message = JSON.parse(msg);
-      if(message.messageType === 'login') {
-        gameState.push({'username': message.username, 'points': 0});
-        console.log(`User '${message.username}' joined game!`);
-      }
-
-      if(message.messageType === 'correctAnswer') {
-        for(var i = 0; i < questions.length-1; i++) {
-          if(gameState[i].username === message.username) {
-              gameState[i].points++;
-              console.log(`'${message.username}' scored 1 point - has total of ${gameState[i].points} points`);
-          }
-        }
-      }
-
-      if(gameState.length === 2 && !gameInProgress) {
-        console.log(`Total of ${gameState.length} players connected. Let's start the game`);
-        beginGame();
-      }
-  })
+  if(!gameInProgress) {
+    clients.push(ws);
+    initializeClient(ws);
+  }
 });
 
 function getRandom(min, max) {
