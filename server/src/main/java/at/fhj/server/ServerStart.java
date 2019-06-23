@@ -1,20 +1,22 @@
 package at.fhj.server;
 
+import at.fhj.SimpQui;
 import at.fhj.question.QuestionPool;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.util.log.Log;
-import org.eclipse.jetty.util.log.StdErrLog;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+
+import static at.fhj.SimpQui.PropertyKey.ServerPort;
 
 public class ServerStart {
     public static void main(String[] args) {
-        Log.setLog(new StdErrLog());
+        SimpQui.INSTANCE.loadProperties();
 
         var server = new Server();
         var connector = new ServerConnector(server);
-        connector.setPort(8090);
+        connector.setPort(Integer.parseInt(SimpQui.INSTANCE.getProperty(ServerPort)));
         server.addConnector(connector);
 
         // Setup the basic application "context" for this application at "/"
