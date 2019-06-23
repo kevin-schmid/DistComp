@@ -63,4 +63,10 @@
     text-align: left;
 }
 
+.correct {
+    background-color: #4CAF50;
+}
 
+.wrong {
+    background-color: #F44336;
+}
