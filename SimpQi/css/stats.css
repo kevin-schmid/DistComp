@@ -1,5 +1,5 @@
 .table-container {
-    margin-left: 39.5%;
+    margin-left: 37%;
 }
 
 .heading {
@@ -14,12 +14,6 @@
     font-size: 1.6vw;
 }
 
-.suber {
-    padding-top: 7%;
-    font-size: 1vw;
-    color: gray;
-}
-
 .intro {
     text-align: center;
     padding-bottom: 2%;
@@ -27,11 +21,13 @@
 }
 
 .intro h2 {
-    font-size: 7vw;
+    font-size: 5vw;
+    font-family: Roboto, sans-serif;
 }
+
 
 @media only screen and (max-width: 800px) {
     .table-container {
-        margin-left: 39.7%;
+        margin-left: 38%;
     }
 }

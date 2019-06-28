@@ -2,6 +2,7 @@
 import pika
 import time
 from .classes.writeToMongo import WriteToMongo;
+from .classes.queue_parser import QueueParser
 
 connection = pika.BlockingConnection(
     #TODO: Change if needed
@@ -15,7 +16,11 @@ print(' [*] Waiting for messages. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
-    sender = WriteToMongo.__init__(body)
+    parser = QueueParser.__init__()
+    parser.parse(body)
+    body = parser.data_list
+    name = parser.db_name
+    sender = WriteToMongo.__init__(body,name)
     sender.writeToMongo();
 
     time.sleep(body.count(b'.'))
