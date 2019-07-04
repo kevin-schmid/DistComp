@@ -14,12 +14,7 @@ public class QuestionEncoder implements Encoder.Text<Question> {
     }
 
     @Override
-    public void init(EndpointConfig config) {
-
-    }
-
+    public void init(EndpointConfig config) {}
     @Override
-    public void destroy() {
-
-    }
+    public void destroy() {}
 }

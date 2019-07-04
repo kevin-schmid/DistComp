@@ -30,7 +30,6 @@ public class MessageDecoder implements Decoder.Text<ClientMessage> {
 
     @Override
     public void init(EndpointConfig config) {}
-
     @Override
     public void destroy() {}
 }

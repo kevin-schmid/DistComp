@@ -11,8 +11,10 @@ public enum SimpQui {
         GamePlayerCount("game.player_count"),
         GameRoundTime("game.round_time"),
         GameRoundCount("game.round_count"),
+        UserstatHost("userstat.host"),
         UserstatQueue("userstat.queue"),
         QuestionPoolRefillSize("question_pool.refillSize"),
+        QuestionReceiverHost("question_receiver.host"),
         QuestionReceiverQueue("question_receiver.queue");
 
         private String value;

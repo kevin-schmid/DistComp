@@ -1,5 +1,6 @@
 package at.fhj.game;
 
+import at.fhj.SimpQui;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,6 +22,7 @@ public class GameTest {
 
     @Test
     public void startable() {
+        SimpQui.INSTANCE.loadProperties();
         var game = new Game();
         game.addPlayer(new Player("A", null));
         game.addPlayer(new Player("B", null));

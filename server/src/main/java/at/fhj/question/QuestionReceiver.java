@@ -13,7 +13,7 @@ class QuestionReceiver {
 
     public QuestionReceiver() {
         factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.QuestionReceiverHost));
     }
 
     public void receive(final BiConsumer<String, String> consume) {
