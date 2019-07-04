@@ -1,14 +1,15 @@
 const express = require('express');
+const MongoClient = require('mongodb').MongoClient;
 
 var app = express();
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    user: {
         type: String,
     },
-    email: {
-        type: String,
+    games_won: {
+        type: Number,
     },
 });
 
@@ -30,6 +31,13 @@ mongoose.connection
         console.log(`Connection error: ${err.message}`);
     });
 
+const client = new MongoClient(db, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("players").collection("players").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+    });
+});
 
 const server = app.listen(3000, () => {
     console.log(`Express is running on port ${server.address().port}`);
@@ -39,10 +47,18 @@ const server = app.listen(3000, () => {
 const router = express.Router();
 const players = mongoose.model('players');
 
-router.get('/players', (req, res) => {
-    players.find()
-        .then((users) => {
-            res.json(users);
-        })
-        .catch(() => { res.send('Sorry! Something went wrong.'); });
+app.use(express.static('public'));
+app.use('/', router);
+
+module.exports = app;
+router.get('/', (req, res) => {
+
+    client.connect(err => {
+        const collection = client.db("players").collection("players").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.json(result);
+        res.end();
+        });
+    });
 });
