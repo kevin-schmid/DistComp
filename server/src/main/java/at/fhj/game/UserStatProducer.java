@@ -14,7 +14,7 @@ class UserStatProducer {
 
     public UserStatProducer() {
         factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.UserstatHost));
         gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 

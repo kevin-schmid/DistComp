@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
+	"os"
 	"github.com/streadway/amqp"
 )
 
@@ -29,6 +29,7 @@ type Question struct {
 }
 
 func main() {
+	queue := os.Args[1]
 	// loading the sheets data
 	res, err := http.Get("https://sheets.googleapis.com/v4/spreadsheets/1g8464j9pz50pExB8IUdAtZnX4T2fcDbL9aQSHi9EyzE/values:batchGet?ranges=B7%3AB120&ranges=E7%3AE120&key=AIzaSyAWoy5sbzQy1o2ALOTUopHVZmSIOzCVPjw")
 	failOnError(err)
@@ -46,7 +47,7 @@ func main() {
 	vals := data.ValueRanges[1]
 
 	// connecting to the queue
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	conn, err := amqp.Dial(queue)
 	failOnError(err)
 	defer conn.Close()
 

@@ -24,8 +24,7 @@ public class ServerStart {
         context.setContextPath("/");
         server.setHandler(context);
 
-        try
-        {
+        try {
             QuestionPool.INSTANCE.getClass().getSimpleName();
             // Initialize javax.websocket layer
             WebSocketServerContainerInitializer
@@ -37,8 +36,7 @@ public class ServerStart {
             server.dump(System.err);
             server.join();
         }
-        catch (Throwable t)
-        {
+        catch (Throwable t) {
             t.printStackTrace(System.err);
         }
     }
