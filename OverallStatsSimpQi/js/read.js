@@ -18,16 +18,7 @@ app.use(router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://admin:<password>@cluster0-u60tn.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    // perform actions on the collection object
-    client.close();
-});
-
-mongoose.connect('mongodb://localhost/Company');
+mongoose.connect('mongodb+srv://admin:admin@cluster0-u60tn.gcp.mongodb.net/test?retryWrites=true&w=majority');
 
 var Schema = new mongoose.Schema({
     _id    : String,
