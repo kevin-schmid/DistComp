@@ -5,8 +5,8 @@ from .classes.writeToMongo import WriteToMongo;
 from .classes.queue_parser import QueueParser
 
 connection = pika.BlockingConnection(
-    #TODO: Change if needed
-    pika.ConnectionParameters(host='localhost'))
+#TODO: Change if needed
+pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 
 # TODO: Change if needed

@@ -1,18 +1,23 @@
-< !DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Statistics</title>
+    <meta charset="UTF-8">
 </head>
 <body>
-<form action="/stats" method="POST">
-    <label for="user">user: </label>
-    <input type="user" name="user" /><br />
-    <label for="games_won">games_won: </label>
-    <input type="games_won" name="games_won" /><br />
-    <label for="games_lost">games_lost: </label>
-    <input type="games_lost" name="games_lost" /><br />
-    <label for="ranking">Email: </label>
-    <input type="ranking" name="ranking" /><br />
-</form>
+<h1>Players</h1>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $.ajax({
+        url: '/players',
+        type: 'GET'
+    })
+        .done(function(users) {
+            console.table(users);
+        })
+        .fail(function(e) {
+            console.log(e);
+        });
+</script>
 </body>
 </html>
