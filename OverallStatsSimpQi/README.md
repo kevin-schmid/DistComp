@@ -4,8 +4,10 @@
 or if an Intellij Product is used run the "installed needed
 packages option"
 
-Run start.js file
+```bash
+node start.js file
+```
 
 Default Location Localhost:3000
 
-On opening the stats page is shown
+On opening the stats page in browser is shown
