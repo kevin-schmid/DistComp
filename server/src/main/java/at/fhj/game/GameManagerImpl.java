@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 class GameManagerImpl implements GameManager {
-    private Logger log = LoggerFactory.getLogger(GameManagerImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(GameManagerImpl.class);
 
     private final Set<Game> gameCache = Collections.synchronizedSet(new HashSet<Game>());
     private final Map<String, Player> playerCache = new ConcurrentHashMap<>();

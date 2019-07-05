@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Game implements Runnable {
-    private Logger log = LoggerFactory.getLogger(Game.class);
+    private static final Logger log = LoggerFactory.getLogger(Game.class);
     private List<Player> players = new ArrayList<>();
 
     public List<Player> getPlayers() {
@@ -30,7 +30,6 @@ class Game implements Runnable {
     @Override
     public void run() {
         var question = QuestionPool.INSTANCE.pop();
-        log.debug(question.toString());
         getPlayers().forEach(player -> player.send(question));
     }
 }

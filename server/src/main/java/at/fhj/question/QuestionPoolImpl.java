@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 
 class QuestionPoolImpl implements QuestionPool{
-    private Logger log = LoggerFactory.getLogger(QuestionPoolImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(QuestionPoolImpl.class);
 
     private final Queue<String> QUESTION_POOL = new LinkedList<>();
     private final LinkedList<String> ANSWER_POOL = new LinkedList<>();
@@ -26,7 +26,7 @@ class QuestionPoolImpl implements QuestionPool{
     private void tryRefill() {
         var refillSize = Integer.parseInt(SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.QuestionPoolRefillSize));
         if(QUESTION_POOL.size() < refillSize) {
-            log.debug("refill starts");
+            log.debug("refill requested");
             new QuestionReceiver().receive(consumeRefill);
         }
     }
@@ -37,6 +37,7 @@ class QuestionPoolImpl implements QuestionPool{
         while(question.hasOpenAnswerSlots()) {
             question.addWrongAnswer(ANSWER_POOL.get(ThreadLocalRandom.current().nextInt(0, ANSWER_POOL.size())));
         }
+        log.debug("asking: {}", question);
         tryRefill();
         return question;
     }

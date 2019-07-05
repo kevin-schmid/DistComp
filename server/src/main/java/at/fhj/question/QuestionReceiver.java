@@ -4,10 +4,14 @@ import at.fhj.SimpQui;
 import com.google.gson.JsonParser;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.BiConsumer;
 
 class QuestionReceiver {
+    private static final Logger log = LoggerFactory.getLogger(QuestionReceiver.class);
+
     private final ConnectionFactory factory;
     private final JsonParser jsonParser = new JsonParser();
 
@@ -18,6 +22,7 @@ class QuestionReceiver {
 
     public void receive(final BiConsumer<String, String> consume) {
         var queueName = SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.QuestionReceiverQueue);
+        log.debug("receiving questions from queue {} @ {}", queueName, factory.getHost());
         if(queueName.equals(SimpQui.MOCK)) {
             receiveMockData(consume);
         } else {

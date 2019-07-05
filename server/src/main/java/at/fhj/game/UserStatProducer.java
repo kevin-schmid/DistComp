@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class UserStatProducer {
-    Logger log = LoggerFactory.getLogger(UserStatProducer.class);
+    private static final Logger log = LoggerFactory.getLogger(UserStatProducer.class);
     private final ConnectionFactory factory;
     private final Gson gson;
 
@@ -20,6 +20,7 @@ class UserStatProducer {
 
     public void send(Result result) {
         var queueName = SimpQui.INSTANCE.getProperty(SimpQui.PropertyKey.UserstatQueue);
+        log.debug("sendings stats to queue {} @ {}", factory.getHost(), queueName);
         if (queueName.equals(SimpQui.MOCK)) {
             return;
         }

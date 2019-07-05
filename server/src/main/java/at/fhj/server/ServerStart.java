@@ -6,10 +6,14 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static at.fhj.SimpQui.PropertyKey.ServerPort;
 
 public class ServerStart {
+    private static final Logger log = LoggerFactory.getLogger(ServerStart.class);
+
     public static void main(String[] args) {
         SimpQui.INSTANCE.loadProperties();
 
@@ -17,6 +21,8 @@ public class ServerStart {
         var connector = new ServerConnector(server);
         connector.setPort(determinePort(args));
         server.addConnector(connector);
+
+        log.debug("server start. listening on port {}", connector.getPort());
 
         // Setup the basic application "context" for this application at "/"
         // This is also known as the handler tree (in jetty speak)
