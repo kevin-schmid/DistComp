@@ -60,7 +60,7 @@ router.get('/', (req, res) => {
             var json2html = require('node-json2html');
             var t = {'<>':'div','html':'${user} ${ranking}'};
             var html = json2html.transform(result,t);
-            res.write(html);
+            res.write(html); 
         //res.json(result);
         res.end();
         });
