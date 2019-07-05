@@ -32,12 +32,12 @@ mongoose.connection
     });
 
 const client = new MongoClient(db, { useNewUrlParser: true });
-client.connect(err => {
+/*client.connect(err => {
     const collection = client.db("players").collection("players").find({}).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
     });
-});
+});*/
 
 const server = app.listen(3000, () => {
     console.log(`Express is running on port ${server.address().port}`);
@@ -48,7 +48,7 @@ const router = express.Router();
 const players = mongoose.model('players');
 
 app.use(express.static('public'));
-app.use('/', router);
+app.use('/', router);1
 
 module.exports = app;
 router.get('/', (req, res) => {
@@ -57,7 +57,11 @@ router.get('/', (req, res) => {
         const collection = client.db("players").collection("players").find({}).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
-        res.json(result);
+            var json2html = require('node-json2html');
+            var t = {'<>':'div','html':'${user} ${ranking}'};
+            var html = json2html.transform(result,t);
+            res.write(html);
+        //res.json(result);
         res.end();
         });
     });
