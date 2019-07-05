@@ -10,7 +10,7 @@ or if an Intellij Product is used run the "installed needed
 packages option"
 
 ```bash
-node start.js file
+node start.js 
 ```
 
 Default Location Localhost:3000
