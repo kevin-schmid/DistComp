@@ -20,3 +20,7 @@ Other default params which are not configurable in the quick start:
 * 2 Player can play together in one game
 * 5 Question rounds per game are played  
 * Each round lasts 10 seconds
+
+## Setup
+
+Java Version 11 is needed. Dependencies are managed via gradle.
